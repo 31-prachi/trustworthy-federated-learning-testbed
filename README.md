@@ -76,7 +76,7 @@ Five seeds were tested per availability level. The attack diagnostic was already
 ## Quick start
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/trustworthy-federated-learning-testbed.git
+git clone https://github.com/31-prachi/trustworthy-federated-learning-testbed.git
 cd trustworthy-federated-learning-testbed
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
