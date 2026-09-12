@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trustworthy-fl-testbed"
+version = "0.2.0"
+description = "Federated learning under intermittent client availability"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Prachi Jagtap"}]
+dependencies = ["numpy>=1.24,<3"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+keywords = ["federated-learning", "trustworthy-ai", "distributed-learning", "fedavg", "non-iid"]
+
+[tool.setuptools.packages.find]
+include = ["fl_testbed*"]

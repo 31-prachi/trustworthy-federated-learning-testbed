@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>Federated Learning Privacy Report</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;max-width:980px;margin:40px auto;padding:0 20px;color:#172033;background:#f6f8fb}
+h1{color:#123b5d} .subtitle{font-size:1.15rem;color:#536174}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:16px;margin:24px 0}
+.card{background:white;border-radius:12px;padding:18px;box-shadow:0 2px 10px #1b315012;border-top:5px solid #738399}
+.good{border-top-color:#198754} .warn{border-top-color:#e29a16} .value{font-size:1.8rem;font-weight:700;margin:8px 0}
+table{width:100%;border-collapse:collapse;background:white} th,td{padding:12px;text-align:left;border-bottom:1px solid #dfe5ec}
+.note{background:#fff7df;border-left:5px solid #e29a16;padding:14px;margin:20px 0} code{background:#e9eef4;padding:2px 5px}
+</style></head><body>
+<h1>Privacy-Enhanced Federated Learning Report</h1>
+<p class="subtitle">Can organisations learn together without sharing their raw operational records?</p>
+<div class="grid">
+ <div class="card good"><b>Federated accuracy</b><div class="value">86.9%</div><span>Overall predictions that were correct.</span></div>
+ <div class="card warn"><b>Least-served client</b><div class="value">80.0%</div><span>Performance for the client receiving the weakest result.</span></div>
+ <div class="card good"><b>Privacy attack AUC</b><div class="value">0.522</div><span>0.5 is random guessing; lower is preferable.</span></div>
+ <div class="card"><b>Participation gap</b><div class="value">8</div><span>Difference between most and least active clients.</span></div>
+</div>
+<h2>What was tested?</h2>
+<p>8 simulated organisations trained an incident-risk model for 40 rounds. Each organisation retained its raw data and shared only protected model updates.</p>
+<table><thead><tr><th>Method</th><th>Overall accuracy</th><th>Worst-client accuracy</th></tr></thead><tbody><tr><td>Centralized</td><td>85.0%</td><td>80.0%</td></tr><tr><td>Federated (FedAvg)</td><td>86.9%</td><td>80.0%</td></tr>
+<tr><td>Local only</td><td>83.6% (mean)</td><td>73.3%</td></tr></tbody></table>
+<h2>Privacy controls</h2>
+<ul><li>Update clipping norm: <code>1.0</code></li>
+<li>Gaussian noise multiplier: <code>0.15</code></li>
+<li>Secure aggregation simulation: <b>enabled</b></li></ul>
+<h2>Plain-English conclusion</h2>
+<p>The clients successfully produced one shared model without pooling their raw records. Overall accuracy alone is not enough: worst-client performance and participation imbalance reveal who may benefit less.</p>
+<div class="note"><b>Important limitation:</b> This is an educational simulation using synthetic data. Clipping and Gaussian noise are implemented, but no formal privacy budget is claimed. Secure aggregation is simulated in one process and is not production cryptography.</div>
+</body></html>
