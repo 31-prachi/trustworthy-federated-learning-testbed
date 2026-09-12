@@ -3,7 +3,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-3776AB.svg)](https://www.python.org/)
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-A reproducible, explainable Python prototype showing how simulated organisations can jointly train an incident-prediction model while keeping raw operational records local. It investigates **non-IID data**, **intermittent availability**, clipped/noised model updates, communication cost and unequal outcomes across clients.
+A reproducible, explainable Python prototype showing how simulated organisations can jointly train an incident-prediction model while keeping raw operational records local. It investigates **non-IID data**, **intermittent availability**, DP-inspired clipped/noised model updates, communication cost and unequal outcomes across clients.
 
 > **Scope:** educational research prototype. It implements privacy-enhancing mechanisms but does not claim a formal privacy guarantee, production cryptographic security or theoretical convergence.
 
@@ -23,7 +23,7 @@ Each round samples available clients, distributes the current global model, perf
 - Non-IID partitions without personal data
 - Centralized and local-only baselines
 - FedAvg with stochastic availability and minimum participation
-- Per-client update clipping and configurable Gaussian noise
+- DP-inspired per-client update clipping and configurable Gaussian noise
 - Cancelling-mask secure-aggregation simulation
 - Illustrative confidence-based membership-inference AUC
 - Accuracy, precision, recall, F1 and worst-client accuracy
@@ -63,9 +63,12 @@ Five seeds were tested per availability level. The attack diagnostic was already
 ├── .github/workflows/tests.yml
 ├── docs/architecture.svg
 ├── fl_testbed/core.py
-├── results/baseline_seed_42.json
+├── results/protected_seed_42.json
+├── results/multi_seed_study.json
+├── results/report.html
 ├── tests/test_core.py
 ├── run_experiment.py
+├── run_study.py
 ├── pyproject.toml
 ├── requirements.txt
 ├── CONTRIBUTING.md
@@ -124,7 +127,7 @@ python run_study.py
 4. Sample available clients independently in every federated round.
 5. Train locally from the current global parameters.
 6. Aggregate local parameters by training-set size.
-7. record aggregate metrics, client metrics, participation and communication cost.
+7. Record aggregate metrics, client metrics, participation and communication cost.
 
 ## Scientific and ethical boundaries
 
@@ -140,7 +143,7 @@ python run_study.py
 ## Roadmap
 
 - [ ] Compare random, availability-aware and fairness-aware selection
-- [ ] Run multiple seeds and report confidence intervals
+- [x] Run multiple seeds and report variation across availability levels
 - [ ] Model correlated and predictable availability
 - [ ] Add differentially private updates with privacy accounting
 - [ ] Evaluate membership-inference or gradient-leakage risks
@@ -149,7 +152,7 @@ python run_study.py
 
 ## Interview-ready summary
 
-> I built a federated-learning testbed to examine a practical assumption hidden by many FedAvg demonstrations: clients are not always available. It compares centralized, local-only and federated baselines on non-IID synthetic data, while recording aggregate performance, worst-client performance, participation imbalance and communication cost. The initial run shows why accuracy alone is insufficient: aggregate accuracy remained competitive while the worst-client result and participation counts exposed uneven outcomes. My next step is to compare availability-aware and fairness-aware selection across multiple seeds.
+> I built a federated-learning testbed to examine a practical assumption hidden by many FedAvg demonstrations: clients are not always available. It compares centralized, local-only and federated baselines on non-IID synthetic data, while recording aggregate performance, worst-client performance, participation imbalance, communication cost and an illustrative privacy-attack diagnostic. A five-seed availability study showed why accuracy alone is insufficient: aggregate performance can remain competitive while worst-client outcomes and participation counts expose uneven benefits. The clipping, Gaussian noise and secure-aggregation simulation are privacy-enhancing mechanisms, not a formal differential-privacy or cryptographic guarantee. My next steps are to introduce realistic named operational features, add formal privacy accounting and strengthen the privacy-attack evaluation.
 
 ## Author
 
